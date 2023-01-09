@@ -1,14 +1,14 @@
-package com.thg.accelerator23.connectn.ai.yourteam;
+package com.thg.accelerator23.connectn.ai.dan;
 
 import com.thehutgroup.accelerator.connectn.player.Board;
 import com.thehutgroup.accelerator.connectn.player.Counter;
 import com.thehutgroup.accelerator.connectn.player.Player;
 
 
-public class NameAi extends Player {
-  public NameAi(Counter counter) {
+public class SirForkALot extends Player {
+  public SirForkALot(Counter counter) {
     //TODO: fill in your name here
-    super(counter, NameAi.class.getName());
+    super(counter, SirForkALot.class.getName());
   }
 
   @Override
