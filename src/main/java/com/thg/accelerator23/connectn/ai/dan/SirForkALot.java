@@ -8,6 +8,9 @@ import java.util.Arrays;
 public class SirForkALot extends Player {
   Random rand = new Random();
   Counter counter = getCounter();
+  String counterString = counter.getStringRepresentation();
+  String piece = String.valueOf(getCounter());
+
   int a = 10;
   int b = 6;
   Position position = new Position(a, b);
@@ -17,12 +20,15 @@ public class SirForkALot extends Player {
     //TODO: fill in your name here
     super(counter, SirForkALot.class.getName());
   }
+
   @Override
   public int makeMove(Board board) {
     //TODO: some crazy analysis
     //TODO: make sure said analysis uses less than 2G of heap and returns within 10 seconds on whichever machine is running it
+
     Random random = new Random();
-    int x = random.nextInt(3);
+    int x = random.nextInt(1);
+    System.out.print(counter);
     System.out.println("Testing Aarjav's code");
 
     if (ourOwnMinVacantY(x, board) < 8) {
