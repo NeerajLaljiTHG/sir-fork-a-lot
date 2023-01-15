@@ -6,7 +6,7 @@
     <groupId>com.thg.accelerator23.connectn.ai</groupId>
     <!-- do not change this -->
     <artifactId>${yourteam}</artifactId>
-    <version>allah</version>
+    <version>lol</version>
 
     <repositories>
         <repository>
@@ -48,11 +48,6 @@
             <groupId>com.github.THG-accelerator</groupId>
             <artifactId>connectn-player</artifactId>
             <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.NeerajLaljiTHG</groupId>
-            <artifactId>sir-fork-a-lot</artifactId>
-            <version>1.0.1</version>
         </dependency>
     </dependencies>
 

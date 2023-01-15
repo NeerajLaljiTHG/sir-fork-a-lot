@@ -35,16 +35,18 @@ public class Minimax {
         if (depth == 0 || gameState.isEnd()) {
             if (gameState.isEnd()) {
                 if (gameState.getWinner() == c) {
-                    return new ColumnValueHolder(0, 9999999);
+                    return new ColumnValueHolder(9999999,0 );
                 }
                 else if (gameState.getWinner() == c.getOther()) {
-                    return new ColumnValueHolder(0, -9999999);
+                    return new ColumnValueHolder(-9999999, 0);
                 } else {
                     return new ColumnValueHolder(0, 0);
                 }
             } else {
                 Windows windows = new Windows();
-                return new ColumnValueHolder(0, windows.scorePosition(board, c));
+                int score = windows.scorePosition(board,c);
+                System.out.println(score);
+                return new ColumnValueHolder(windows.scorePosition(board, c), 0);
             }
         }
 
@@ -53,7 +55,7 @@ public class Minimax {
             for (int col:validCols) {
                 try {
                     Board newBoard = new Board(board, col, Counter.O);
-                    ColumnValueHolder newColumnValueHolder = minimax(newBoard, depth - 1, alpha, beta, false, c.getOther());
+                    ColumnValueHolder newColumnValueHolder = minimax(newBoard, depth - 1, alpha, beta, false, c);
                     if (newColumnValueHolder.getValue() > columnValueHolder.getValue()) {
                         columnValueHolder.setValue(newColumnValueHolder.getValue());
                         columnValueHolder.setColumn(col);
@@ -76,7 +78,7 @@ public class Minimax {
             for (int col:validCols) {
                 try {
                     Board newBoard = new Board(board, col, Counter.X);
-                    ColumnValueHolder newColumnValueHolder = minimax(newBoard, depth - 1, alpha, beta, true, c.getOther());
+                    ColumnValueHolder newColumnValueHolder = minimax(newBoard, depth - 1, alpha, beta, true, c);
                     if (newColumnValueHolder.getValue() < columnValueHolder.getValue()) {
                         columnValueHolder.setValue(newColumnValueHolder.getValue());
                         columnValueHolder.setColumn(col);
