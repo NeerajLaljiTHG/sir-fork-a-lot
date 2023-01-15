@@ -2,13 +2,10 @@ package com.thg.accelerator23.connectn.ai.dan;
 
 import com.thehutgroup.accelerator.connectn.player.Board;
 import com.thehutgroup.accelerator.connectn.player.Counter;
-//import com.thehutgroup.accelerator.connectn.player.Player;
 import com.thehutgroup.accelerator.connectn.player.Position;
 import java.util.List;
 import java.util.ArrayList;
-//import java.util.Random;
 import java.util.Collections;
-
 
 public class Windows {
 
@@ -41,10 +38,8 @@ public class Windows {
         int n = 4;
         int score = 0;
         // need to add search for diagonal windows
-
         //score horizontal positions
         for (int row=0;row<board.getConfig().getHeight();row++){
-
             List<Position> positionsOnThisRow = new ArrayList<>();
             for (int col=0;col<board.getConfig().getWidth();col++){
                 Position pos = new Position(col , row);
@@ -54,11 +49,9 @@ public class Windows {
                 List<Position> window = positionsOnThisRow.subList(colWindow,colWindow+n);
                 score += evaluateWindow(window,piece);
             }
-
         }
         //score vertical positions
         for (int col=0;col<board.getConfig().getWidth();col++){
-
             List<Position> positionsOnThisRow = new ArrayList<>();
             for (int row=0;row<board.getConfig().getHeight();row++){
                 Position pos = new Position(col , row);
@@ -68,7 +61,42 @@ public class Windows {
                 List<Position> window = positionsOnThisRow.subList(rowWindow,rowWindow+n);
                 score += evaluateWindow(window,piece);
             }
+        }
+        for (int row = 0; row<board.getConfig().getHeight()-3;row++ ){
 
+            for (int col = 0; col<board.getConfig().getWidth()-3;col++ ){
+                List<Position> window =  new ArrayList<>();
+                for(int i = 0;i < n;i++){
+                    Position pos = new Position(col+i , row+i);
+                    window.add(pos);
+                }
+                score += evaluateWindow(window,piece);
+            }
+        }
+
+        // score negative diagonal
+        for (int row = 0; row<board.getConfig().getHeight()-3;row++ ){
+            for (int col = 0; col<board.getConfig().getWidth()-3;col++ ){
+                List<Position> window =  new ArrayList<>();
+                int h = board.getConfig().getHeight();
+                for(int i = 0;i < n;i++){
+                    Position pos = new Position(col+i , h-1-row - i);
+                    window.add(pos);
+                }
+                score += evaluateWindow(window,piece);
+            }
+        }
+
+        //score the centre winning pieces (cols with possible wins from left and right)
+        for (int col= 3;col<board.getConfig().getWidth()-3;col++){
+            List<Position> positionsOnThisCol =  new ArrayList<>();
+            for (int row=0;row<board.getConfig().getHeight();row++){
+                Position pos = new Position(col , row);
+                positionsOnThisCol.add(pos);
+            }
+            int numberOurInCol =  Collections.frequency( positionsOnThisCol, piece);
+            int numberOppInCol = Collections.frequency( positionsOnThisCol, piece.getOther());
+            score += numberOurInCol - numberOppInCol;
         }
 
         return score;

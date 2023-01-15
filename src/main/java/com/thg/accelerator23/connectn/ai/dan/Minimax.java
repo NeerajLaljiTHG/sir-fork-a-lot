@@ -4,17 +4,16 @@ import OurAnalyserStuff.BoardAnalyser;
 import OurAnalyserStuff.GameState;
 import com.thehutgroup.accelerator.connectn.player.Board;
 import com.thehutgroup.accelerator.connectn.player.Counter;
-import com.thehutgroup.accelerator.connectn.player.Player;
 import com.thehutgroup.accelerator.connectn.player.Position;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Collections;
 import java.lang.*;
 
 public class Minimax {
+    Windows windows = new Windows();
+    Counter c;
 
-    private List<Integer> getValidCols (Board board) {
+    public List<Integer> getValidCols(Board board) {
         List<Integer> emptyCols = new ArrayList<>();
 
         for (int i=0; i<board.getConfig().getWidth(); i++) {
@@ -27,7 +26,7 @@ public class Minimax {
         return emptyCols;
     }
 
-    public ColumnValueHolder minimax(Board board , int depth , int alpha , int beta, boolean maximisingPlayer, Counter c){
+    public ColumnValueHolder minimax(Board board , int depth , int alpha , int beta, boolean maximisingPlayer, Counter c) {
         List<Integer> validCols = getValidCols(board);
         BoardAnalyser boardAnalyser = new BoardAnalyser(board.getConfig());
         GameState gameState = boardAnalyser.calculateGameState(board);
@@ -35,21 +34,21 @@ public class Minimax {
         if (depth == 0 || gameState.isEnd()) {
             if (gameState.isEnd()) {
                 if (gameState.getWinner() == c) {
-                    return new ColumnValueHolder(0, 9999999);
+                    return new ColumnValueHolder(9999999, 0);
                 }
                 else if (gameState.getWinner() == c.getOther()) {
-                    return new ColumnValueHolder(0, -9999999);
+                    return new ColumnValueHolder(-9999999, 0);
                 } else {
                     return new ColumnValueHolder(0, 0);
                 }
             } else {
-                Windows windows = new Windows();
                 return new ColumnValueHolder(0, windows.scorePosition(board, c));
             }
         }
 
+        ColumnValueHolder columnValueHolder;
         if (maximisingPlayer) {
-            ColumnValueHolder columnValueHolder = new ColumnValueHolder(-9999999,0);
+            columnValueHolder = new ColumnValueHolder(-9999999, 0);
             for (int col:validCols) {
                 try {
                     Board newBoard = new Board(board, col, Counter.O);
@@ -67,12 +66,10 @@ public class Minimax {
                 }
             }
 
-            return columnValueHolder;
-
         }
         //else if minimising player
         else{
-            ColumnValueHolder columnValueHolder = new ColumnValueHolder(9999999,0);
+            columnValueHolder = new ColumnValueHolder(9999999, 0);
             for (int col:validCols) {
                 try {
                     Board newBoard = new Board(board, col, Counter.X);
@@ -89,8 +86,8 @@ public class Minimax {
                     System.out.println("Something goes wrong - find out what :)");
                 }
             }
-            return columnValueHolder;
         }
+        return columnValueHolder;
 
     }
 
