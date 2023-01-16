@@ -16,12 +16,8 @@ public class SirForkALot extends Player {
 
     long startTime = System.currentTimeMillis();
     Minimax moveMaker = new Minimax();
-    ColumnValueHolder columnValueHolder = moveMaker.minimax(board, 3, -9999999, 9999999, true, getCounter());
+    ColumnValueHolder columnValueHolder = moveMaker.minimax(board, 5, -9999999, 9999999, true, getCounter());
     columnChoice = columnValueHolder.getColumn();
-    System.out.println("This is the column: " + columnValueHolder.getColumn());
-    System.out.println("This is the value: " + columnValueHolder.getValue());
-    long endTime = (System.currentTimeMillis() - startTime )/ 1000;
-    System.out.println("It took: " + endTime + " seconds!");
 
     return columnChoice;
   }
