@@ -14,7 +14,6 @@ public class SirForkALot extends Player {
   public int makeMove(Board board) {
     int columnChoice;
 
-    long startTime = System.currentTimeMillis();
     Minimax moveMaker = new Minimax();
     ColumnValueHolder columnValueHolder = moveMaker.minimax(board, 5, -9999999, 9999999, true, getCounter());
     columnChoice = columnValueHolder.getColumn();

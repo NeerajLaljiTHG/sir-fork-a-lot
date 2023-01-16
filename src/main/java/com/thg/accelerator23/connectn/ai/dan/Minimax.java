@@ -44,8 +44,6 @@ public class Minimax {
                 }
             } else {
                 Windows windows = new Windows();
-                int score = windows.scorePosition(board,c);
-                System.out.println(score);
                 return new ColumnValueHolder(windows.scorePosition(board, c), 0);
             }
         }
